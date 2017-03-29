@@ -1,9 +1,11 @@
 $(document).ready(function() {
 
+  var searchTerm,page;
+
   function searchSubmit(e) {
     $(".fa-spinner").show();
     e.preventDefault();
-    var searchTerm = $("#search_term").val();
+    searchTerm = $("#search_term").val();
     if (!searchTerm || searchTerm.length < 3) {
       alert("Please enter at least 3 characters");
       $(".fa-spinner").hide();
@@ -12,8 +14,9 @@ $(document).ready(function() {
     getResults(searchTerm);
   }
 
-  function getResults(term) {
-    var data = JSON.stringify({"search_term":term});
+  function getResults() {
+    debugger;
+    var data = JSON.stringify({"search_term":searchTerm,"page": page});
     $.ajax({
       url: "search",
       method: "POST",
@@ -32,12 +35,35 @@ $(document).ready(function() {
   }
 
   function handleResults(data) {
-    $("#results-table").append(JSON.parse(data));
+    $("#next-button").remove();
+    $("#page-number").remove();
+    if (!page) {
+      $("#results-table").empty();
+      $("#results-table").html("<td>Price</td>");
+      $("#results-table").append(JSON.parse(data));
+    } else {
+      $("#results-table").append(JSON.parse(data));
+    }
+    debugger;
+    var pageEl = $("#page-number");
+    if (pageEl && pageEl.data() && pageEl.data().page) {
+      page = pageEl.data().page;
+      $("#results-table").after("<button id='next-button'>View More</button>");
+
+    }
+    nextButtonListener();
   }
 
   function submitListener() {
     document.forms[0]
-            .addEventListener("submit", searchSubmit);
+      .addEventListener("submit", function(e) {
+        page = null;
+        searchSubmit(e);
+      });
+  }
+
+  function nextButtonListener() {
+    $("#next-button").on("click",searchSubmit);
   }
 
   submitListener();

@@ -4,3 +4,6 @@
     <td><%= info["price"] %></td>
   </tr>
 <% end %>
+<% if next_page %>
+  <tr id="page-number" data-page=<%= next_page %>></tr>
+<% end %>

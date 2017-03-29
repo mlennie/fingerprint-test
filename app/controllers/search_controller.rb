@@ -5,10 +5,10 @@ class SearchController < ApplicationController
   end
 
   def create
-    results = Search.get_results params["search_term"]
+    results = Search.get_results params["search_term"], params["page"]
     respond_to do |format|
       format.html
-      format.js { render "search/search_results", locals: {results: results} }
+      format.js { render "search/search_results", locals: results }
     end
 
   end
