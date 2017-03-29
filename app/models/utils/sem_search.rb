@@ -8,13 +8,15 @@ class SemSearch
 
   attr_accessor :client, :term, :results
 
-  def initialize
+  def initialize term
     @client = Semantics3::Products.new( KEY, SECRET )
+    @term = term
   end
 
-  def search raw_term
-    prepare_search raw_term
+  def search
+    prepare_search
     search_and_cache
+    self.results
   end
 
   def search_and_cache
@@ -23,8 +25,7 @@ class SemSearch
     self.cache_results
   end
 
-  def prepare_search raw_term
-    self.term = raw_term.downcase.strip
+  def prepare_search
     self.client.products_field( "search", self.term )
   end
 
