@@ -15,7 +15,6 @@ $(document).ready(function() {
   }
 
   function getResults() {
-    debugger;
     var data = JSON.stringify({"search_term":searchTerm,"page": page});
     $.ajax({
       url: "search",
@@ -44,7 +43,6 @@ $(document).ready(function() {
     } else {
       $("#results-table").append(JSON.parse(data));
     }
-    debugger;
     var pageEl = $("#page-number");
     if (pageEl && pageEl.data() && pageEl.data().page) {
       page = pageEl.data().page;
