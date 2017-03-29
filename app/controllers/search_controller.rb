@@ -6,6 +6,10 @@ class SearchController < ApplicationController
 
   def create
     results = Search.get_results params["search_term"]
-    binding.pry
+    respond_to do |format|
+      format.html
+      format.js { render "search/search_results", locals: {results: results} }
+    end
+
   end
 end

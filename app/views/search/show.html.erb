@@ -1,8 +1,17 @@
 <!-- SEARCH FORM -->
-<%= form_tag(search_path, :method => "post", id: "search-form") do %>
-    <%= text_field_tag :search_term, params[:search], placeholder: "Search Products" %>
-    <%= submit_tag "Search", :name => nil %>
-<% end %>
+<form>
+  <div>
+      <label>Search Term
+          <input id="search_term" type="text" name="search_term">
+      </label>
+      <div>
+          <button id="submit" type="submit">submit</button>
+      </div>
+  </div>
+</form>
+<i class="fa fa-spinner fa-pulse fa-2x fa-fw" style="display:none"></i>
 
 <!-- RESULTS TABLE -->
-<div id="results-table"></div>
+<table id="results-table">
+  <th>Price</th>
+</table>

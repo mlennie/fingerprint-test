@@ -1,0 +1,6 @@
+<% results.each do |result| %>
+  <% info = JSON.parse(result["json"]) %>
+  <tr>
+    <td><%= info["price"] %></td>
+  </tr>
+<% end %>

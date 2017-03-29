@@ -37,6 +37,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'semantics3'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
+gem "font-awesome-rails"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
