@@ -3,16 +3,18 @@ require 'json'
 
 class SemSearch
 
+  KEY = ENV["SEMANTIC_KEY"]
+  SECRET = ENV["SEMANTIC_SECRET"]
+
   attr_accessor :client, :term, :results
 
   def initialize
-    @client = Semantics3::Products.new(ENV["SEMANTIC_KEY"],ENV["SEMANTIC_SECRET"])
+    @client = Semantics3::Products.new( KEY, SECRET )
   end
 
-  def self.search raw_term
-    sem = self.new
-    sem.prepare_search raw_term
-    sem.search_and_cache
+  def search raw_term
+    prepare_search raw_term
+    search_and_cache
   end
 
   def search_and_cache
@@ -28,8 +30,7 @@ class SemSearch
 
   def cache_results
     self.results.each do |result|
-      json = result.to_json
-      SearchResult.create(json: json, term: term)
+      SearchResult.create(json: result.to_json, term: term)
     end
   end
 
