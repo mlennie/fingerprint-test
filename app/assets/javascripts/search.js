@@ -25,6 +25,10 @@ $(document).ready(function() {
     })
     .done(function(data) {
       $(".fa-spinner").hide()
+      if (!data || !data.results) {
+        alert("There was an issue finding results. Please try again soon");
+        return;
+      }
       handleResults(data);
     })
     .fail(function(err) {

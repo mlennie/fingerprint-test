@@ -15,14 +15,22 @@ class SemSearch
 
   def search
     prepare_search
-    search_and_cache
-    self.results
+    if search_and_cache
+      return self.results
+    else
+      return false
+    end
   end
 
   def search_and_cache
-    resultsHash = self.client.get_products()
+    begin
+      resultsHash = self.client.get_products()
+    rescue
+      return false
+    end
     self.results = resultsHash["results"]
     self.cache_results
+    return true
   end
 
   def prepare_search
@@ -30,8 +38,11 @@ class SemSearch
   end
 
   def cache_results
-    self.results.each do |result|
-      SearchResult.create(json: result.to_json, term: term)
+    ActiveRecord::Base.transaction do
+      self.results.each do |result|
+        SearchResult.create(json: result.to_json, term: term)
+      end
+      return true
     end
   end
 

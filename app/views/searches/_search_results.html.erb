@@ -1,9 +1,11 @@
-<% results.each do |result| %>
-  <% info = JSON.parse(result["json"]) %>
-  <tr>
-    <td><%= info["price"] %></td>
-  </tr>
-<% end %>
-<% if next_page %>
-  <tr id="page-number" data-page=<%= next_page %>></tr>
+<% if results && results.any? %>
+  <% results.each do |result| %>
+    <% info = JSON.parse(result["json"]) %>
+    <tr>
+      <td><%= info["price"] %></td>
+    </tr>
+  <% end %>
+  <% if next_page %>
+    <tr id="page-number" data-page=<%= next_page %>></tr>
+  <% end %>
 <% end %>
