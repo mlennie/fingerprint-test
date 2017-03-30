@@ -15,11 +15,7 @@ class SemSearch
 
   def search
     prepare_search
-    if search_and_cache
-      return self.results
-    else
-      return false
-    end
+    return search_and_cache ? self.results : false
   end
 
   def search_and_cache

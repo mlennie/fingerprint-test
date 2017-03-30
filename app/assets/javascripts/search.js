@@ -55,11 +55,10 @@ $(document).ready(function() {
   }
 
   function submitListener() {
-    document.forms[0]
-      .addEventListener("submit", function(e) {
-        page = null;
-        searchSubmit(e);
-      });
+    $("#search-submit").on("click", function(e) {
+      page = null;
+      searchSubmit(e);
+    });
   }
 
   function nextButtonListener() {
