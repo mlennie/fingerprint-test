@@ -26,7 +26,6 @@ class SemSearch
     end
     self.results = resultsHash["results"]
     self.cache_results
-    return true
   end
 
   def prepare_search
@@ -34,6 +33,7 @@ class SemSearch
   end
 
   def cache_results
+    return false unless (self.results && self.results.any?)
     ActiveRecord::Base.transaction do
       self.results.each do |result|
         SearchResult.create(json: result.to_json, term: term)

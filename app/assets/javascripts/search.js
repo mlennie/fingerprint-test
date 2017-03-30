@@ -25,7 +25,7 @@ $(document).ready(function() {
     })
     .done(function(data) {
       $(".fa-spinner").hide()
-      if (!data || !data.results) {
+      if (!data) {
         alert("There was an issue finding results. Please try again soon");
         return;
       }
