@@ -1,4 +1,4 @@
-class SearchController < ApplicationController
+class SearchesController < ApplicationController
 
   def show
 
@@ -8,8 +8,7 @@ class SearchController < ApplicationController
     results = Search.get_results params["search_term"], params["page"]
     respond_to do |format|
       format.html
-      format.js { render "search/search_results", locals: results }
+      format.js { render "searches/search_results", locals: results }
     end
-
   end
 end

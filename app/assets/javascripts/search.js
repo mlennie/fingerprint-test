@@ -39,10 +39,8 @@ $(document).ready(function() {
     if (!page) {
       $("#results-table").empty();
       $("#results-table").html("<td>Price</td>");
-      $("#results-table").append(JSON.parse(data));
-    } else {
-      $("#results-table").append(JSON.parse(data));
     }
+    $("#results-table").append(JSON.parse(data));
     var pageEl = $("#page-number");
     if (pageEl && pageEl.data() && pageEl.data().page) {
       page = pageEl.data().page;

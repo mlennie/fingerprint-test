@@ -1,0 +1,8 @@
+<%= link_to 'Home', root_path %>
+<h1>Admin Caching</h1>
+<p>Here you can submit terms to pre cache the results</p>
+<!-- SEARCH FORM -->
+<%= form_tag(admin_caches_path, :method => "post", id: "admin-cache-form") do %>
+  <%= text_field_tag :search_term, params[:search_term], placeholder: "Search Term" %>
+  <%= submit_tag "Submit", :name => nil %>
+<% end %>
