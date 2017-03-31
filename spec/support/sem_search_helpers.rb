@@ -21,6 +21,12 @@ module SemSearchTestHelpers
     return {"results": "products"}
   end
 
+  def sem_search_prepare_search_calls_products_field_helper
+    sem = create_sem_helper
+    expect(@client).to receive(:products_field).with("search","iphone").and_return("expected result")
+    expect(sem.prepare_search).to eq("expected result")
+  end
+
   def sem_search_and_cache_prepare_helper
     sem = create_sem_helper
     allow(@client).to receive(:get_products).once.and_return(sem_results_helper)

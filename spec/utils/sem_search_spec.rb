@@ -40,5 +40,11 @@ RSpec.describe SemSearch, type: :model do
       sem_search_and_cache_calls_cache_results_helper
     end
   end
+
+  describe "prepare_search" do
+    it "calls products_field with correct params and returns result" do
+      sem_search_prepare_search_calls_products_field_helper
+    end
+  end
 end
 
