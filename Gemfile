@@ -43,6 +43,11 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-rails'
   gem 'pry-nav'
+  gem 'rspec-rails', '~> 3.5'
+  gem "shoulda-matchers"
+  gem "factory_girl_rails"
+  gem 'ffaker'
+  gem 'webmock'
 end
 
 group :development do

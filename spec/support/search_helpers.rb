@@ -1,0 +1,3 @@
+module SearchTestHelpers
+
+end
