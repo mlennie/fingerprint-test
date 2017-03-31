@@ -2,7 +2,10 @@ module SemSearchTestHelpers
 
   class Client
     def get_products
-      return "products"
+      return {"results": "products"}
+    end
+    def products_field(action,term)
+      return true
     end
   end
 
@@ -12,6 +15,42 @@ module SemSearchTestHelpers
     @client = Client.new
     allow(Semantics3::Products).to receive(:new).with(key,secret).and_return(@client)
     SemSearch.new "iphone"
+  end
+
+  def sem_results_helper
+    return {"results": "products"}
+  end
+
+  def sem_search_and_cache_prepare_helper
+    sem = create_sem_helper
+    allow(@client).to receive(:get_products).once.and_return(sem_results_helper)
+    allow(sem).to receive(:cache_results).once
+    sem
+  end
+
+  def sem_search_search_and_cache_calls_get_products_helper
+    sem = sem_search_and_cache_prepare_helper
+    expect(@client).to receive(:get_products).once.and_return(sem_results_helper)
+    sem.search_and_cache
+  end
+
+  def sem_search_and_cache_returns_false_for_exception_helper
+    sem = sem_search_and_cache_prepare_helper
+    allow(@client).to receive(:get_products).once.and_raise("error")
+    expect(sem.search_and_cache).to eq false
+  end
+
+  def sem_search_stores_results_from_get_products_helper
+    sem = sem_search_and_cache_prepare_helper
+    expect(sem.results).to eq(nil)
+    sem.search_and_cache
+    expect(sem.results).to eq(sem_results_helper["results"])
+  end
+
+  def sem_search_and_cache_calls_cache_results_helper
+    sem = sem_search_and_cache_prepare_helper
+    expect(sem).to receive(:cache_results).once
+    sem.search_and_cache
   end
 
   def sem_search_initialize_sets_term_helper
@@ -30,27 +69,31 @@ module SemSearchTestHelpers
     sem.search
   end
 
-  def sem_search_search_calls_search_and_cache_helper
+  def create_sem_and_call_prepare_search_helper
     sem = create_sem_helper
     allow(sem).to receive(:prepare_search).once
+    sem
+  end
+
+  def sem_search_search_calls_search_and_cache_helper
+    sem = create_sem_and_call_prepare_search_helper
     expect(sem).to receive(:search_and_cache).once
     sem.search
   end
 
   def sem_search_search_returns_results_helper
-    sem = create_sem_helper
-    allow(sem).to receive(:prepare_search).once
+    sem = create_sem_and_call_prepare_search_helper
     allow(sem).to receive(:search_and_cache).and_return(true)
     sem.results = "results"
     expect(sem.search).to eq("results")
   end
 
   def sem_search_search_returns_false_helper
-    sem = create_sem_helper
-    allow(sem).to receive(:prepare_search).once
+    sem = create_sem_and_call_prepare_search_helper
     allow(sem).to receive(:search_and_cache).and_return(false)
     sem.results = "results"
     expect(sem.search).to eq(false)
   end
+
 
 end

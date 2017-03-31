@@ -25,5 +25,20 @@ RSpec.describe SemSearch, type: :model do
       sem_search_search_returns_false_helper
     end
   end
+
+  describe "search_and_cache" do
+    it "calls get_products on sem.client" do
+      sem_search_search_and_cache_calls_get_products_helper
+    end
+    it "returns false when get_products throws and exception" do
+      sem_search_and_cache_returns_false_for_exception_helper
+    end
+    it "stores results key of get_products into self.results" do
+      sem_search_stores_results_from_get_products_helper
+    end
+    it "calls cache_results" do
+      sem_search_and_cache_calls_cache_results_helper
+    end
+  end
 end
 
