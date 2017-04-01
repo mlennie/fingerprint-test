@@ -38,9 +38,6 @@ $(document).ready(function() {
   }
 
   function handleResults(data) {
-    //$("#next-button").remove();
-    //$("#next-button").remove();
-    $("#page-number").remove();
     $("#results-table").empty();
     $("#results-table").html(JSON.parse(data));
     nextButtonListener();
