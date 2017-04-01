@@ -60,9 +60,15 @@ RSpec.describe Search, type: :model do
   end
 
   describe "search_and_cache" do
-    it "destroys all search results with correct term"
-    it "calls Search.run_sem_search with correct params"
-    it "returns true"
+    it "destroys all search results with correct term" do
+      search_search_and_cache_destroys_results
+    end
+    it "calls Search.run_sem_search with correct params" do
+      search_search_and_cache_calls_run_sem_search
+    end
+    it "returns true" do
+      search_search_and_cache_returns_true
+    end
   end
 
 end

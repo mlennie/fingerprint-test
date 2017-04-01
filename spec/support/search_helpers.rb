@@ -111,5 +111,26 @@ module SearchTestHelpers
     result = Search.get_next_and_last_pages 2, 5, 10
     expect(result[:last_page]).to eq 1
   end
+  def search_search_and_cache_destroys_results
+    stub_sem_search
+    SearchResult.create(json: "one",term:"iphone")
+    SearchResult.create(json: "two",term:"iphone")
+    result_3 = SearchResult.create(json: "three",term:"not iphone")
+
+    Search.search_and_cache "iphone"
+
+    expect(SearchResult.count).to eq 1
+    expect(SearchResult.first).to eq result_3
+  end
+  def search_search_and_cache_calls_run_sem_search
+    stub_sem_search
+    expect(Search).to receive(:run_sem_search).once.with("iphone")
+    Search.search_and_cache "iphone"
+  end
+  def search_search_and_cache_returns_true
+    stub_sem_search
+    result = Search.search_and_cache "iphone"
+    expect(result).to eq(true)
+  end
 
 end
