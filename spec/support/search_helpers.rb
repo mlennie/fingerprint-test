@@ -95,4 +95,21 @@ module SearchTestHelpers
     expect(sem).to receive(:search)
     Search.run_sem_search "iphone"
   end
+  def get_next_and_last_returns_nil_next_page
+    result = Search.get_next_and_last_pages 2, 5, 9
+    expect(result[:next_page]).to be_nil
+  end
+  def get_next_and_last_returns_nil_last_page
+    result = Search.get_next_and_last_pages 1, 5, 11
+    expect(result[:last_page]).to be_nil
+  end
+  def get_next_and_last_returns_non_nil_next_page
+    result = Search.get_next_and_last_pages 2, 5, 11
+    expect(result[:next_page]).to eq 3
+  end
+  def get_next_and_last_returns_non_nil_last_page
+    result = Search.get_next_and_last_pages 2, 5, 10
+    expect(result[:last_page]).to eq 1
+  end
+
 end

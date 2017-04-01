@@ -36,10 +36,18 @@ RSpec.describe Search, type: :model do
   end
 
   describe "get_next_and_last_pages" do
-    it "returns nil next_page when it should"
-    it "returns nil last_page when it should"
-    it "should return correct next_page when not nil"
-    it "should return correct last_page when not nil"
+    it "returns nil next_page when it should" do
+      get_next_and_last_returns_nil_next_page
+    end
+    it "returns nil last_page when it should" do
+      get_next_and_last_returns_nil_last_page
+    end
+    it "should return correct next_page when not nil" do
+      get_next_and_last_returns_non_nil_next_page
+    end
+    it "should return correct last_page when not nil" do
+      get_next_and_last_returns_non_nil_last_page
+    end
   end
 
   describe "run_sem_search" do
