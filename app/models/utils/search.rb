@@ -16,9 +16,10 @@ class Search
       results = false
     end
 
-    next_page = (page * limit) < count ? page += 1 : nil
+    next_page = (page * limit) < count ? page + 1 : nil
+    last_page = page > 1 ? page - 1 : nil
 
-    { results: results, next_page: next_page }
+    { results: results, next_page: next_page, last_page: last_page, page: page }
   end
 
   def self.run_sem_search term

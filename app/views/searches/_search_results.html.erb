@@ -1,11 +1,22 @@
 <% if results && results.any? %>
-  <% results.each do |result| %>
-    <% info = JSON.parse(result["json"]) %>
-    <tr>
-      <td><%= info["price"] %></td>
-    </tr>
+  <% if next_page || last_page %>
+    <p> Page <%= page %></p>
   <% end %>
-  <% if next_page %>
-    <tr id="page-number" data-page=<%= next_page %>></tr>
-  <% end %>
+  <table>
+    <th>Price</th>
+    <% results.each do |result| %>
+      <% info = JSON.parse(result["json"]) %>
+      <tr>
+        <td><%= info["price"] %></td>
+      </tr>
+    <% end %>
+  </table>
+  <div>
+    <% if last_page %>
+      <button class="page-number" data-page=<%= last_page %>>Back</button>
+    <% end %>
+    <% if next_page %>
+      <button class="page-number" data-page=<%= next_page %>>Next</button>
+    <% end %>
+  </div>
 <% end %>

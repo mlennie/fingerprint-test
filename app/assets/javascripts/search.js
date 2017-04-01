@@ -38,19 +38,11 @@ $(document).ready(function() {
   }
 
   function handleResults(data) {
-    $("#next-button").remove();
+    //$("#next-button").remove();
+    //$("#next-button").remove();
     $("#page-number").remove();
-    if (!page) {
-      $("#results-table").empty();
-      $("#results-table").html("<td>Price</td>");
-    }
-    $("#results-table").append(JSON.parse(data));
-    var pageEl = $("#page-number");
-    if (pageEl && pageEl.data() && pageEl.data().page) {
-      page = pageEl.data().page;
-      $("#results-table").after("<button id='next-button'>View More</button>");
-
-    }
+    $("#results-table").empty();
+    $("#results-table").html(JSON.parse(data));
     nextButtonListener();
   }
 
@@ -62,7 +54,12 @@ $(document).ready(function() {
   }
 
   function nextButtonListener() {
-    $("#next-button").on("click",searchSubmit);
+    $(".page-number").on("click", function(e) {
+      if (this.dataset && this.dataset.page) {
+        page = +this.dataset.page;
+      }
+      searchSubmit(e);
+    });
   }
 
   submitListener();
