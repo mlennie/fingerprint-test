@@ -46,5 +46,20 @@ RSpec.describe SemSearch, type: :model do
       sem_search_prepare_search_calls_products_field_helper
     end
   end
+
+  describe "cache_results" do
+    it "returns false if results are nil" do
+      sem_cache_results_returns_false_if_results_nil_helper
+    end
+    it "returns false if results are empty" do
+      sem_cache_results_returns_false_if_results_empty_helper
+    end
+    it "creates a SearchResult for each result" do
+      sem_cache_results_creates_search_results_helper
+    end
+    it "returns true" do
+      sem_cache_results_returns_true_helper
+    end
+  end
 end
 

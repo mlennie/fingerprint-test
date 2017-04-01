@@ -36,7 +36,7 @@ class SemSearch
     return false unless (self.results && self.results.any?)
     ActiveRecord::Base.transaction do
       self.results.each do |result|
-        SearchResult.create(json: result.to_json, term: term)
+        SearchResult.create(json: result.to_json, term: self.term)
       end
       return true
     end

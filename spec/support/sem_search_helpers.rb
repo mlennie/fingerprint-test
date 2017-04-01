@@ -1,3 +1,4 @@
+require 'json'
 module SemSearchTestHelpers
 
   class Client
@@ -19,6 +20,39 @@ module SemSearchTestHelpers
 
   def sem_results_helper
     return {"results": "products"}
+  end
+
+  def sem_cache_results_returns_false_if_results_nil_helper
+    sem = create_sem_helper
+    sem.results = nil
+    expect(sem.cache_results).to eq(false)
+  end
+
+  def sem_cache_results_returns_false_if_results_empty_helper
+    sem = create_sem_helper
+    sem.results = []
+    expect(sem.cache_results).to eq(false)
+  end
+
+  def sem_cache_results_creates_search_results_helper
+    sem = create_sem_helper
+    sem.term = "iphone"
+    results = [{test: 1,term: 1}, {test: 2,term: 2}]
+    sem.results = results
+    sem.cache_results
+    expect(SearchResult.count).to eq(2)
+    expect(SearchResult.first.json).to eq(results[0].to_json)
+    expect(SearchResult.second.json).to eq(results[1].to_json)
+    expect(SearchResult.first.term).to eq("iphone")
+    expect(SearchResult.second.term).to eq("iphone")
+  end
+
+  def sem_cache_results_returns_true_helper
+    sem = create_sem_helper
+    sem.term = "iphone"
+    results = [{test: 1,term: 1}, {test: 2,term: 2}]
+    sem.results = results
+    expect(sem.cache_results).to eq(true)
   end
 
   def sem_search_prepare_search_calls_products_field_helper
