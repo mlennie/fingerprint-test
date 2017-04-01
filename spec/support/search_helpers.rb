@@ -1,5 +1,13 @@
 module SearchTestHelpers
+
+  class SemTest
+    def search
+      return true
+    end
+  end
+
   LIMIT = 3
+
   def stub_sem_search
     allow(Search).to receive(:run_sem_search).and_return(true)
   end
@@ -75,5 +83,16 @@ module SearchTestHelpers
     expect(results.count).to eq 2
     expect(results.first).to eq result_3
     expect(results.last).to eq result_4
+  end
+  def search_run_sem_search_instantiates_sem
+    sem = SemTest.new
+    expect(SemSearch).to receive(:new).once.with("iphone").and_return(sem)
+    Search.run_sem_search "iphone"
+  end
+  def search_run_sem_search_calls_search
+    sem = SemTest.new
+    allow(SemSearch).to receive(:new).and_return(sem)
+    expect(sem).to receive(:search)
+    Search.run_sem_search "iphone"
   end
 end

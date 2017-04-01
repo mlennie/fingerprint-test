@@ -43,8 +43,12 @@ RSpec.describe Search, type: :model do
   end
 
   describe "run_sem_search" do
-    it "instantiates a SemSearch with correct param"
-    it "calls search on intantiated SemSearch"
+    it "instantiates a SemSearch with correct param" do
+      search_run_sem_search_instantiates_sem
+    end
+    it "calls search on intantiated SemSearch" do
+      search_run_sem_search_calls_search
+    end
   end
 
   describe "search_and_cache" do
