@@ -3,14 +3,27 @@ require 'rails_helper'
 RSpec.describe Search, type: :model do
 
   describe "get_results" do
-    it "should set page properly"
-    it "sets limit to be 3"
-    it "formats term correctly"
-    it "calls run_sem_search when should"
-    it "doesn't call run_sem_search when shouldn't"
-    it "calls get_paginated_results with correct params"
-    it "calls get_next_and_last_pages with correct params"
-    it "returns hash with correct keys and values"
+    it "sets limit to be 3" do
+      search_get_results_sets_limit
+    end
+    it "formats term correctly" do
+      search_get_results_formats_term
+    end
+    it "calls run_sem_search when should" do
+      search_get_results_runs_sem_search
+    end
+    it "doesn't call run_sem_search when shouldn't" do
+      search_get_results_doesnt_call_runs_sem_search
+    end
+    it "calls get_paginated_results with correct params" do
+      search_get_results_calls_get_paginated_results
+    end
+    it "calls get_next_and_last_pages with correct params" do
+      search_get_results_calls_get_next_and_last_pages
+    end
+    it "returns hash with correct keys and values" do
+      search_get_results_returns_hash
+    end
   end
 
   describe "get_paginated_results" do

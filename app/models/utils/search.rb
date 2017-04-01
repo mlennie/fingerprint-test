@@ -1,7 +1,6 @@
 class Search
 
   def self.get_results raw_term, page
-    page ||= 1
     limit = 3
     term = raw_term.downcase.strip
 

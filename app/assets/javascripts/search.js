@@ -45,7 +45,7 @@ $(document).ready(function() {
 
   function submitListener() {
     $("#search-submit").on("click", function(e) {
-      page = null;
+      page = 1;
       searchSubmit(e);
     });
   }
