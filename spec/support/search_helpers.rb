@@ -59,5 +59,21 @@ module SearchTestHelpers
     allow(Search).to receive(:get_next_and_last_pages).and_return(pages)
     expect(Search.get_results "iphone", 1).to eq(expected_results)
   end
-
+  def search_get_paginated_results_returns_false
+    all_results = SearchResult.all
+    response = Search.get_paginated_results all_results, LIMIT, 1
+    expect(response).to eq false
+  end
+  def search_get_paginated_results_returns_correct_records
+    result_1 = SearchResult.create(json: "one",term: "iphone")
+    result_2 = SearchResult.create(json: "two",term: "iphone")
+    result_3 = SearchResult.create(json: "three",term: "iphone")
+    result_4 = SearchResult.create(json: "four",term: "iphone")
+    result_5 = SearchResult.create(json: "five",term: "iphone")
+    all_results = SearchResult.all
+    results = Search.get_paginated_results all_results, 2, 2
+    expect(results.count).to eq 2
+    expect(results.first).to eq result_3
+    expect(results.last).to eq result_4
+  end
 end

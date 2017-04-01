@@ -27,8 +27,12 @@ RSpec.describe Search, type: :model do
   end
 
   describe "get_paginated_results" do
-    it "returns false when there are no all_results"
-    it "returns correct results through limit and offset"
+    it "returns false when there are no all_results" do
+      search_get_paginated_results_returns_false
+    end
+    it "returns correct results through limit and offset" do
+      search_get_paginated_results_returns_correct_records
+    end
   end
 
   describe "get_next_and_last_pages" do
