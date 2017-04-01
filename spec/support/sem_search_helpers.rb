@@ -64,7 +64,7 @@ module SemSearchTestHelpers
   def sem_search_and_cache_prepare_helper
     sem = create_sem_helper
     allow(@client).to receive(:get_products).once.and_return(sem_results_helper)
-    allow(sem).to receive(:cache_results).once
+    allow(sem).to receive(:cache_results).once.and_return("cache_results value")
     sem
   end
 
@@ -91,6 +91,11 @@ module SemSearchTestHelpers
     sem = sem_search_and_cache_prepare_helper
     expect(sem).to receive(:cache_results).once
     sem.search_and_cache
+  end
+
+  def sem_search_and_cache_returns_cache_results_helper
+    sem = sem_search_and_cache_prepare_helper
+    expect(sem.search_and_cache).to eq("cache_results value")
   end
 
   def sem_search_initialize_sets_term_helper
@@ -134,6 +139,5 @@ module SemSearchTestHelpers
     sem.results = "results"
     expect(sem.search).to eq(false)
   end
-
 
 end

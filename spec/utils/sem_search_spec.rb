@@ -39,6 +39,9 @@ RSpec.describe SemSearch, type: :model do
     it "calls cache_results" do
       sem_search_and_cache_calls_cache_results_helper
     end
+    it "returns value of cache_results" do
+      sem_search_and_cache_returns_cache_results_helper
+    end
   end
 
   describe "prepare_search" do
