@@ -1,16 +1,8 @@
 <% if results && results.any? %>
+  </br>
   <% if next_page || last_page %>
     <p> Page <%= page %></p>
   <% end %>
-  <table>
-    <th>Price</th>
-    <% results.each do |result| %>
-      <% info = JSON.parse(result["json"]) %>
-      <tr>
-        <td><%= info["price"] %></td>
-      </tr>
-    <% end %>
-  </table>
   <div>
     <% if last_page %>
       <button class="page-number" data-page=<%= last_page %>>Back</button>
@@ -19,4 +11,40 @@
       <button class="page-number" data-page=<%= next_page %>>Next</button>
     <% end %>
   </div>
+  </br>
+  <table class="table">
+    <th>Name</th>
+    <th>Brand</th>
+    <th>Model</th>
+    <th>Price Currency</th>
+    <th>Price</th>
+    <th>Description</th>
+    <th>Image</th>
+    <th>Color</th>
+    <th>Height</th>
+    <th>Width</th>
+    <th>Length</th>
+    <th>Category</th>
+    <th>Weight</th>
+    <th>Manufacturer</th>
+    <% results.each do |result| %>
+      <% info = JSON.parse(result["json"]) %>
+      <tr>
+        <td><%= info["name"] rescue "" %></td>
+        <td><%= info["brand"] rescue "" %></td>
+        <td><%= info["model"] rescue "" %></td>
+        <td><%= info["price_currency"] rescue "" %></td>
+        <td><%= info["price"] rescue "" %></td>
+        <td><%= info["description"] rescue "" %></td>
+        <td><img src="<%= info["images"][0] rescue ""%>" width="300"></td>
+        <td><%= info["color"] rescue ""%></td>
+        <td><%= info["height"] rescue ""%></td>
+        <td><%= info["width"] rescue ""%></td>
+        <td><%= info["length"] rescue ""%></td>
+        <td><%= info["category"] rescue ""%></td>
+        <td><%= info["weight"] rescue ""%></td>
+        <td><%= info["manufacturer"] rescue ""%></td>
+      </tr>
+    <% end %>
+  </table>
 <% end %>
